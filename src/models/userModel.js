@@ -1,4 +1,3 @@
-// src/models/userModel.js
 const db = require("../config/db");
 const bcrypt = require("bcryptjs");
 
@@ -10,11 +9,12 @@ class User {
     return rows[0];
   }
 
-  static async createUser(email, password) {
+  static async createUser(name, email, password) {
     const hashedPassword = await bcrypt.hash(password, 10);
     const [result] = await db
       .promise()
-      .query("INSERT INTO users (email, password) VALUES (?, ?)", [
+      .query("INSERT INTO users (name, email, password) VALUES (?, ?, ?)", [
+        name,
         email,
         hashedPassword,
       ]);

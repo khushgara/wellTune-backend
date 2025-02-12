@@ -26,7 +26,7 @@ const login = async (req, res) => {
 };
 
 const register = async (req, res) => {
-  const { email, password } = req.body;
+  const { name, email, password } = req.body;
 
   try {
     const existingUser = await User.findByEmail(email);
@@ -34,7 +34,7 @@ const register = async (req, res) => {
       return res.status(400).json({ message: "User already exists" });
     }
 
-    const userId = await User.createUser(email, password);
+    const userId = await User.createUser(name, email, password);
     res.status(201).json({ message: "User registered", userId });
   } catch (err) {
     res.status(500).json({ message: "Server error" });
